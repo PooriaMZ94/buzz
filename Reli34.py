@@ -12,14 +12,14 @@ from matplotlib.patches import Patch
 from scipy.stats import lognorm, norm, uniform
 import math
 from datetime import datetime
-import vfo.vfo as vfo
-import BraineryWiz as BSV
+# import vfo.vfo as vfo
+# import BraineryWiz as BSV
 global Epsfactor; Epsfactor=10
 global factorAngle; factorAngle=1
 global AttackAngle; AttackAngle=0
 
 
-import opsvis as vis
+# import opsvis as vis
 global DOFsToMatch;DOFsToMatch=[1,2,3,4,5,6]
 global DOFsToMatchc; DOFsToMatchc=[1,2,3]
 
@@ -32,7 +32,7 @@ practiceCores= cores-2
 print(f"Taking {practiceCores} Cores for Run!")
 #***********************************************************************************************************************
 #Model Criteria
-global iTower; iTower=1
+global iTower; iTower=5
 global cable; cable="on"
 # Domain
 global Nodeiloc, C_Elementiloc,B_Elementiloc
@@ -996,7 +996,7 @@ def Gravity(rhoc, Lc, cableR, cableL):
 
     if runplot=='on':
         BSV.PlotDefo(plotmode=3,scale_factor=1,onhover_message=True, plot_legends=True, vertical_axis=3, show_constrained=True,
-                      fig_width=800,fig_height=1200,title='Deflected Shape After Gravity', image_filename=f"Out_{Attempt}/Gravity Deflected Shape")
+                      fig_width=1600,fig_height=2400,title='Deflected Shape After Gravity', image_filename=f"Gravity Deflected Shape")
     if Runmodal=='on':
         W2_strcture= Modal(nMode)
         reset_analysis()
@@ -1923,13 +1923,12 @@ Fyc=Tc/(0.25*np.pi*Dc**2)
 # W2_strcture= Gravity(rhoc, Lc, cableR, cableL)
 
 
+WindSpeed=20
 
-for WindSpeed in range(20,110, 10):
 
-
-    if Reliability=='on':
-        nTrials=10
-        runparallel='Thread'
-        final_results, AllX =MCS(runparallel, nTrials, E, Fy1, Fy2, Imperfection, Density, Ei, Di, rhoi, Ti, Ec, Dc, rhoc, Fyc, WindSpeed)
-        RV_Vectors, Results= post_MCS(final_results, AllX)
+if Reliability=='on':
+    nTrials=10
+    runparallel='Thread'
+    final_results, AllX =MCS(runparallel, nTrials, E, Fy1, Fy2, Imperfection, Density, Ei, Di, rhoi, Ti, Ec, Dc, rhoc, Fyc, WindSpeed)
+    RV_Vectors, Results= post_MCS(final_results, AllX)
 
