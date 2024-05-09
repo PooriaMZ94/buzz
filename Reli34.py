@@ -514,12 +514,14 @@ def PlotTowerDisplacement(Step):
 #Functions
 def MainNodesTower(Lc, Tower_No):
     for i in range(len(Nodeiloc)):
-        df = pd.read_excel('Input/NodeDomain.xlsx', sheet_name=Nodeiloc[i], header=0)
+        # Read the data from a text file
+        df = pd.read_csv('nodes.txt', delimiter='\t', header=0)
+
         for j in range(len(df['node'])):
-            Tag=Tower_No*NumNodeDomain+ int(df['node'][j])
-            op.node(Tag,float(df['x'][j]),float(df['y'][j])+Lc*Tower_No,float(df['z'][j]))
-        
+            Tag = Tower_No * NumNodeDomain + int(df['node'][j])
+            op.node(Tag, float(df['x'][j]), float(df['y'][j]) + Lc * Tower_No, float(df['z'][j]))
     return
+
 def TowerReactionNode():
     Rnode =[]
     for i in op.getNodeTags():
